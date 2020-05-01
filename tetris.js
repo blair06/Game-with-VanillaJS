@@ -104,6 +104,17 @@ function makeBlock(){
     })
     drawing();
 }
+function blockDown(){
+    for(var i = tetrisData.length-1;i>=0; i--){
+        tetrisData[i].forEach(function(td,j){
+            if(td>0 && td<10){//범위상 움직이는 블록(TRUE설정인)을 뜻한다.
+                tetrisData[i+1][j]=td;//한줄 아래로 내리기
+                tetrisData[i][j] = 0; //현재 내부분은 빈칸
+            };
+        });
+    };
+    drawing();
+}
 function drawing(){
     tetrisData.forEach(function(tr, i){
         tr.forEach(function(td,j){
@@ -133,3 +144,4 @@ window.addEventListener('keyup', function (e){
 });
 makeFrame();
 makeBlock();
+blockDown();

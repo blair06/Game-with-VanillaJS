@@ -1,26 +1,44 @@
-const form = document.querySelector(".js-form")
-const input = form.querySelector("input");
-const USER_LS ="currentUser"
-const SHOWING_CN = "showing";
-const greeting = document.querySelector(".js-greetings");
+const nameContainer = document.querySelector(".js-name");
 
-function askForName(){
-    form.classList.add(SHOWING_CN);
+function paintName(name) {
+  nameContainer.innerHTML = "";
+  const title = document.createElement("span");
+  title.className = "name__text";
+  title.innerHTML = `Hello ${name}`;
+  nameContainer.appendChild(title);
 }
-function paintGreeting(text){
-    form.classList.remove(SHOWING_CN);
-    greeting.classList.add(SHOWING_CN);
-    greeting.innerText = `Hello ${text}`;
+
+function handleSubmit(event) {
+  event.preventDefault();
+  const form = event.target;
+  const input = form.querySelector("input");
+  const value = input.value;
+  localStorage.setItem("username", value);
+  paintName(value);
 }
-function loadName(){
-    const currentUser = localStorage.getItem(USER_LS);
-    if(currentUser === null){
-        askForName();
-    } else{
-        paintGreeting(currentUser);
-    }
+
+function paintInput() {
+  const input = document.createElement("input");
+  input.placeholder = "Type your name here";
+  input.type = "text";
+  input.className = "name__input";
+  const form = document.createElement("form");
+  form.addEventListener("submit", handleSubmit);
+  form.appendChild(input);
+  nameContainer.appendChild(form);
 }
-function init(){
-    loadName();
+
+function loadName() {
+  const name = localStorage.getItem("username");
+  if (name === null) {
+    paintInput();
+  } else {
+    paintName(name);
+  }
 }
+
+function init() {
+  loadName();
+}
+
 init();

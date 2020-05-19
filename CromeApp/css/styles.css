@@ -1,6 +1,6 @@
-.form,.greetings {
-    display:none;
-}
-.showting {
-    display: block;
-}
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+@import "main.css";
+@import "location.css";
+@import "weather.css";
+@import "center.css";
+@import "todo.css";
